@@ -14,9 +14,8 @@ UCLASS()
 class GAS_JURA_API AJuraEnemyCharacter : public AJuraBaseCharacter,public IEnemyInterface
 {
 	GENERATED_BODY()
-protected:
-	virtual void HighLight() override;
-	virtual void UnHighLight() override;
 public:
 	AJuraEnemyCharacter();
+	virtual void HighLight() override;
+	virtual void UnHighLight() override;
 };

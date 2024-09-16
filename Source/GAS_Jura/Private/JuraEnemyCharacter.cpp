@@ -3,6 +3,9 @@
 
 #include "JuraEnemyCharacter.h"
 
+#include "AbilitySystem/JuraAbilitySystemComponent.h"
+#include "AbilitySystem/JuraCharacterAttributeSet.h"
+
 void AJuraEnemyCharacter::HighLight()
 {
 	GetMesh()->SetRenderCustomDepth(true);
@@ -19,4 +22,6 @@ void AJuraEnemyCharacter::UnHighLight()
 
 AJuraEnemyCharacter::AJuraEnemyCharacter()
 {
+	AbilitySystemComponent = CreateDefaultSubobject<UJuraAbilitySystemComponent>("AbilityComponent");
+	AttributeSet = CreateDefaultSubobject<UJuraCharacterAttributeSet>("AttributeSet");
 }
