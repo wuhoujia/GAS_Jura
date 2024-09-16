@@ -2,11 +2,14 @@
 
 
 #include "AbilitySystem/JuraCharacterAttributeSet.h"
-#include "AbilitySystem/JuraAbilitySystemComponent.h"
 #include "Net/UnrealNetwork.h"
 
 UJuraCharacterAttributeSet::UJuraCharacterAttributeSet()
 {
+	InitHealth(100.f);
+	InitMana(100.f);
+	InitMaxHealth(100.f);
+	InitMaxMana(100.f);
 }
 
 void UJuraCharacterAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
