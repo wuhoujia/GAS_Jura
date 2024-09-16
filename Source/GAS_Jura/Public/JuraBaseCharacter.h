@@ -10,7 +10,8 @@ UCLASS(Abstract)
 class GAS_JURA_API AJuraBaseCharacter : public ACharacter
 {
 	GENERATED_BODY()
-
+	UPROPERTY(EditAnywhere,Category="Weapon",meta=(AllowPrivateAccess="true"))
+	TObjectPtr<USkeletalMeshComponent> Weapon;
 public:
 	// Sets default values for this character's properties
 	AJuraBaseCharacter();

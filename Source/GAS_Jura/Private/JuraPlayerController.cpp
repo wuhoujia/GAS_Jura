@@ -8,12 +8,12 @@
 
 void AJuraPlayerController::Move(const FInputActionValue& ActionValue)
 {
-	FVector2D InputValue = ActionValue.Get<FVector2D>();
-	FRotator ControlRot = GetControlRotation();
-	FRotator YawRotation(0.f,ControlRot.Yaw,0.f);
-	FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-	FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-	if (APawn* ControlledPawn = GetPawn())
+	const FVector2D InputValue = ActionValue.Get<FVector2D>();
+	const FRotator ControlRot = GetControlRotation();
+	const FRotator YawRotation(0.f,ControlRot.Yaw,0.f);
+	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+	if (APawn* ControlledPawn = GetPawn<APawn>())
 	{
 		ControlledPawn->AddMovementInput(ForwardDirection,InputValue.Y);
 		ControlledPawn->AddMovementInput(RightDirection,InputValue.X);
@@ -45,6 +45,6 @@ void AJuraPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 	UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
-	check(MoveAction.Get());
-	EnhancedInputComponent->BindAction(MoveAction.Get(),ETriggerEvent::Triggered,this,&AJuraPlayerController::Move);
+	check(MoveAction);
+	EnhancedInputComponent->BindAction(MoveAction,ETriggerEvent::Triggered,this,&AJuraPlayerController::Move);
 }
