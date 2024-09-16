@@ -5,6 +5,8 @@
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "JuraEnemyCharacter.h"
+#include "Interface/EnemyInterface.h"
 
 void AJuraPlayerController::Move(const FInputActionValue& ActionValue)
 {
@@ -20,9 +22,35 @@ void AJuraPlayerController::Move(const FInputActionValue& ActionValue)
 	}
 }
 
+void AJuraPlayerController::CursorTrace()
+{
+	FHitResult HitResult;
+	GetHitResultUnderCursor(ECC_Visibility,false,HitResult);
+	if (!HitResult.bBlockingHit) return;
+	LastEnemy = CurrentEnemy;
+	if (!Cast<IEnemyInterface>(HitResult.GetActor())) CurrentEnemy = nullptr;
+	else CurrentEnemy = Cast<AJuraEnemyCharacter>(HitResult.GetActor());
+	if (LastEnemy)
+	{
+		LastEnemy->UnHighLight();
+	}
+	if (CurrentEnemy)
+	{
+		CurrentEnemy->HighLight();
+	}
+}
+
 AJuraPlayerController::AJuraPlayerController()
 {
 	bReplicates = true;
+	LastEnemy = nullptr;
+	CurrentEnemy = nullptr;
+}
+
+void AJuraPlayerController::PlayerTick(float DeltaTime)
+{
+	Super::PlayerTick(DeltaTime);
+	CursorTrace();
 }
 
 void AJuraPlayerController::BeginPlay()

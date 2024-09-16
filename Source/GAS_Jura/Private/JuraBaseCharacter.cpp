@@ -10,6 +10,7 @@ AJuraBaseCharacter::AJuraBaseCharacter()
 	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>("Weapon");
 	Weapon->SetupAttachment(GetMesh(),FName("WeaponHandSocket"));
 	Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	GetMesh()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);
 }
 // Called when the game starts or when spawned
 void AJuraBaseCharacter::BeginPlay()

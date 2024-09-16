@@ -8,6 +8,7 @@
 #include "UObject/StrongObjectPtr.h"
 #include "JuraPlayerController.generated.h"
 
+class AJuraEnemyCharacter;
 /**
  * 
  */
@@ -21,9 +22,14 @@ class GAS_JURA_API AJuraPlayerController : public APlayerController
 	TObjectPtr<UInputAction> MoveAction;
 	// move action call back
 	void Move(const FInputActionValue& ActionValue);
+	// check cursor
+	void CursorTrace();
+	TObjectPtr<AJuraEnemyCharacter> LastEnemy;
+	TObjectPtr<AJuraEnemyCharacter> CurrentEnemy;
 public:
 	AJuraPlayerController();
 protected:
+	virtual void PlayerTick(float DeltaTime) override;
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
 };

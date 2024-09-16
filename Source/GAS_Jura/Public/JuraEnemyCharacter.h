@@ -4,14 +4,19 @@
 
 #include "CoreMinimal.h"
 #include "JuraBaseCharacter.h"
+#include "Interface/EnemyInterface.h"
 #include "JuraEnemyCharacter.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class GAS_JURA_API AJuraEnemyCharacter : public AJuraBaseCharacter
+class GAS_JURA_API AJuraEnemyCharacter : public AJuraBaseCharacter,public IEnemyInterface
 {
 	GENERATED_BODY()
-	
+protected:
+	virtual void HighLight() override;
+	virtual void UnHighLight() override;
+public:
+	AJuraEnemyCharacter();
 };
