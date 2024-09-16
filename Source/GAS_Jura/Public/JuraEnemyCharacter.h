@@ -16,6 +16,7 @@ class GAS_JURA_API AJuraEnemyCharacter : public AJuraBaseCharacter,public IEnemy
 	GENERATED_BODY()
 public:
 	AJuraEnemyCharacter();
+	virtual void BeginPlay() override;
 	virtual void HighLight() override;
 	virtual void UnHighLight() override;
 };

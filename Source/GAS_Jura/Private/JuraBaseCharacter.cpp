@@ -12,7 +12,6 @@ AJuraBaseCharacter()
 	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>("Weapon");
 	Weapon->SetupAttachment(GetMesh(),FName("WeaponHandSocket"));
 	Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	GetMesh()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);
 }
 
 UAbilitySystemComponent* AJuraBaseCharacter::GetAbilitySystemComponent() const

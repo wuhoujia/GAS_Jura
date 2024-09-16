@@ -22,6 +22,16 @@ void AJuraEnemyCharacter::UnHighLight()
 
 AJuraEnemyCharacter::AJuraEnemyCharacter()
 {
+	GetMesh()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);
+
 	AbilitySystemComponent = CreateDefaultSubobject<UJuraAbilitySystemComponent>("AbilityComponent");
+	AbilitySystemComponent->SetIsReplicated(true);
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 	AttributeSet = CreateDefaultSubobject<UJuraCharacterAttributeSet>("AttributeSet");
+}
+
+void AJuraEnemyCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	AbilitySystemComponent->InitAbilityActorInfo(this,this);
 }

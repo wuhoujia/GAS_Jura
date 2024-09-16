@@ -18,6 +18,8 @@ UJuraCharacterAttributeSet* AJuraPlayerState::GetAttributeSet()
 AJuraPlayerState::AJuraPlayerState()
 {
 	AbilitySystemComponent = CreateDefaultSubobject<UJuraAbilitySystemComponent>("AbilityComponent");
+	AbilitySystemComponent->SetIsReplicated(true);
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
 	AttributeSet = CreateDefaultSubobject<UJuraCharacterAttributeSet>("AttributeSet");
 	NetUpdateFrequency = 100.f;
 }
