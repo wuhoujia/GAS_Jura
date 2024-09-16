@@ -6,7 +6,7 @@
 #include "GameFramework/Character.h"
 #include "JuraBaseCharacter.generated.h"
 
-UCLASS()
+UCLASS(Abstract)
 class GAS_JURA_API AJuraBaseCharacter : public ACharacter
 {
 	GENERATED_BODY()
