@@ -10,6 +10,7 @@ AJuraPlayerCharacter::AJuraPlayerCharacter()
 {
 	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>("SpringArmComponent");
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>("CameraComponent");
+	SpringArmComponent->SetupAttachment(GetMesh());
 	CameraComponent->SetupAttachment(SpringArmComponent);
 	SpringArmComponent->TargetArmLength = 600.f;
 }

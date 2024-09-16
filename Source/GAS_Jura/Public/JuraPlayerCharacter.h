@@ -15,9 +15,9 @@ UCLASS()
 class GAS_JURA_API AJuraPlayerCharacter : public AJuraBaseCharacter
 {
 	GENERATED_BODY()
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere,Category="Camera")
 	TObjectPtr<USpringArmComponent> SpringArmComponent;
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere,Category="Camera")
 	TObjectPtr<UCameraComponent> CameraComponent;
 public:
 	AJuraPlayerCharacter();
