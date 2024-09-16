@@ -16,9 +16,9 @@ class GAS_JURA_API AJuraPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere,Category="Input")
-	TWeakObjectPtr<UInputMappingContext> InputMappingCtx;
+	TObjectPtr<UInputMappingContext> InputMappingCtx;
 	UPROPERTY(EditAnywhere,Category="Input")
-	TWeakObjectPtr<UInputAction> MoveAction;
+	TObjectPtr<UInputAction> MoveAction;
 	// move action call back
 	void Move(const FInputActionValue& ActionValue);
 public:

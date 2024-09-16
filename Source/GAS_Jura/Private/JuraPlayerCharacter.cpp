@@ -3,3 +3,13 @@
 
 #include "JuraPlayerCharacter.h"
 
+#include "Camera/CameraComponent.h"
+#include "GameFramework/SpringArmComponent.h"
+
+AJuraPlayerCharacter::AJuraPlayerCharacter()
+{
+	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>("SpringArmComponent");
+	CameraComponent = CreateDefaultSubobject<UCameraComponent>("CameraComponent");
+	CameraComponent->SetupAttachment(SpringArmComponent);
+	SpringArmComponent->TargetArmLength = 600.f;
+}
