@@ -3,10 +3,6 @@
 
 #include "Widgets/JuraBaseUserWidget.h"
 
-UJuraBaseUserWidget::UJuraBaseUserWidget()
-{
-	
-}
 
 void UJuraBaseUserWidget::SetWidgetController(UObject* InWidgetController)
 {

@@ -15,12 +15,11 @@ class GAS_JURA_API UJuraBaseUserWidget : public UUserWidget
 {
 	GENERATED_BODY()
 public:
-	UJuraBaseUserWidget();
 	UFUNCTION(BlueprintCallable)
 	void SetWidgetController(UObject* InWidgetController);
 protected:
 	UFUNCTION(BlueprintImplementableEvent)
-	virtual void OnWidgetControllerSet();
+	void OnWidgetControllerSet();
 private:
 	UPROPERTY()
 	TObjectPtr<UObject> WidgetController;

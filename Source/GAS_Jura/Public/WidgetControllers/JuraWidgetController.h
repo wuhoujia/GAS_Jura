@@ -16,8 +16,7 @@ UCLASS()
 class GAS_JURA_API UJuraWidgetController : public UObject
 {
 	GENERATED_BODY()
-public:
-	UJuraWidgetController();
+
 protected:
 	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<UJuraAbilitySystemComponent> AbilitySystemComponent;
