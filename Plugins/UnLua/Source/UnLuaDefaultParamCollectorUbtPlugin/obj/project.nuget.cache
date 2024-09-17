@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "lLVj3VYrLcaIqYYI8Vbo4rddCv8SyGH8N3KHcOIVfi+diDOehjQoSu2yZSEyx+EoKgRvwnfAB8Y13sDEUveiBQ==",
+  "success": true,
+  "projectFilePath": "E:\\UnrealProjects\\GAS_Jura\\Plugins\\UnLua\\Source\\UnLuaDefaultParamCollectorUbtPlugin\\UnLuaDefaultParamCollectorUbtPlugin.ubtplugin.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\WHJ\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}
