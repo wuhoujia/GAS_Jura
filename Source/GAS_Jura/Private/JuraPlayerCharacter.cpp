@@ -4,6 +4,7 @@
 #include "JuraPlayerCharacter.h"
 
 #include "AbilitySystemComponent.h"
+#include "AbilitySystem/JuraAbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Player/JuraPlayerState.h"
 
@@ -45,4 +46,6 @@ void AJuraPlayerCharacter::InitAbilityActorInfo()
 	AJuraPlayerState* JuraPlayerState = GetPlayerState<AJuraPlayerState>();
 	check(JuraPlayerState);
 	JuraPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(JuraPlayerState,this);
+	AbilitySystemComponent = Cast<UJuraAbilitySystemComponent>(JuraPlayerState->GetAbilitySystemComponent());
+	AttributeSet = JuraPlayerState->GetAttributeSet();
 }
