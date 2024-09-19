@@ -55,5 +55,6 @@ void AJuraPlayerCharacter::InitAbilityActorInfo()
 	AJuraPlayerController* JuraPlayerController = Cast<AJuraPlayerController>(GetController());\
 	if(!JuraPlayerController) return;
 	AJuraHUD* JuraHUD = Cast<AJuraHUD>(JuraPlayerController->GetHUD());
-	JuraHUD->InitOverlay(AbilitySystemComponent,AttributeSet,JuraPlayerState,JuraPlayerController);
+	// 多人游戏情况下，本地的其他玩家可能是空
+	if(JuraHUD) JuraHUD->InitOverlay(AbilitySystemComponent,AttributeSet,JuraPlayerState,JuraPlayerController);
 }
