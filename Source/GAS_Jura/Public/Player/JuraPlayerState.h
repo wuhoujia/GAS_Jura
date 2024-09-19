@@ -7,7 +7,7 @@
 #include "GameFramework/PlayerState.h"
 #include "JuraPlayerState.generated.h"
 
-class UJuraCharacterAttributeSet;
+class UAttributeSet;
 class UJuraAbilitySystemComponent;
 /**
  * 
@@ -18,11 +18,11 @@ class GAS_JURA_API AJuraPlayerState : public APlayerState,public IAbilitySystemI
 	GENERATED_BODY()
 protected:
 	UPROPERTY(EditDefaultsOnly,Category="Ability")
-	TObjectPtr<UJuraAbilitySystemComponent> AbilitySystemComponent;
+	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 	UPROPERTY(EditDefaultsOnly,Category="Ability")
-	TObjectPtr<UJuraCharacterAttributeSet> AttributeSet;
+	TObjectPtr<UAttributeSet> AttributeSet;
 public:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-	UJuraCharacterAttributeSet* GetAttributeSet();
+	UAttributeSet* GetAttributeSet();
 	AJuraPlayerState();
 };

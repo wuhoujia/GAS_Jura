@@ -7,7 +7,7 @@
 #include "GameFramework/Character.h"
 #include "JuraBaseCharacter.generated.h"
 
-class UJuraCharacterAttributeSet;
+class UAttributeSet;
 class UJuraAbilitySystemComponent;
 
 UCLASS(Abstract)
@@ -20,13 +20,13 @@ public:
 	
 protected:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-	UJuraCharacterAttributeSet* GetAttributeSet();
+	UAttributeSet* GetAttributeSet();
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	UPROPERTY(EditAnywhere,Category="Weapon",meta=(AllowPrivateAccess="true"))
 	TObjectPtr<USkeletalMeshComponent> Weapon;
 	UPROPERTY(EditDefaultsOnly,Category="Ability")
-	TObjectPtr<UJuraAbilitySystemComponent> AbilitySystemComponent;
+	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 	UPROPERTY(EditDefaultsOnly,Category="Ability")
-	TObjectPtr<UJuraCharacterAttributeSet> AttributeSet;
+	TObjectPtr<UAttributeSet> AttributeSet;
 };

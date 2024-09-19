@@ -58,8 +58,8 @@ void AJuraPlayerController::BeginPlay()
 	Super::BeginPlay();
 	check(InputMappingCtx.Get());
 	UEnhancedInputLocalPlayerSubsystem* LocalInputSubSystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
-	check(LocalInputSubSystem);
-	LocalInputSubSystem->AddMappingContext(InputMappingCtx.Get(),0);
+	if(LocalInputSubSystem)
+		LocalInputSubSystem->AddMappingContext(InputMappingCtx.Get(),0);
 
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Default;

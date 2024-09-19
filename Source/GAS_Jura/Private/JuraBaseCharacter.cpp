@@ -19,7 +19,7 @@ UAbilitySystemComponent* AJuraBaseCharacter::GetAbilitySystemComponent() const
 	return AbilitySystemComponent;
 }
 
-UJuraCharacterAttributeSet* AJuraBaseCharacter::GetAttributeSet()
+UAttributeSet* AJuraBaseCharacter::GetAttributeSet()
 {
 	return AttributeSet;
 }

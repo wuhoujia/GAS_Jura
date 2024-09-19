@@ -10,7 +10,7 @@ UAbilitySystemComponent* AJuraPlayerState::GetAbilitySystemComponent() const
 	return AbilitySystemComponent;
 }
 
-UJuraCharacterAttributeSet* AJuraPlayerState::GetAttributeSet()
+UAttributeSet* AJuraPlayerState::GetAttributeSet()
 {
 	return AttributeSet;
 }

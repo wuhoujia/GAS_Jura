@@ -4,9 +4,8 @@
 #include "Widgets/JuraBaseUserWidget.h"
 
 
-void UJuraBaseUserWidget::SetWidgetController(UObject* InWidgetController)
+void UJuraBaseUserWidget::SetWidgetController(UJuraWidgetController* InWidgetController)
 {
 	this->WidgetController = InWidgetController;
 	OnWidgetControllerSet();
 }
-

@@ -4,8 +4,10 @@
 #include "JuraPlayerCharacter.h"
 
 #include "AbilitySystemComponent.h"
+#include "JuraPlayerController.h"
 #include "AbilitySystem/JuraAbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "HUD/JuraHUD.h"
 #include "Player/JuraPlayerState.h"
 
 AJuraPlayerCharacter::AJuraPlayerCharacter()
@@ -39,6 +41,7 @@ void AJuraPlayerCharacter::OnRep_PlayerState()
 	Super::OnRep_PlayerState();
 	/*在客户端上初始化ASC*/
 	InitAbilityActorInfo();
+	
 }
 
 void AJuraPlayerCharacter::InitAbilityActorInfo()
@@ -48,4 +51,9 @@ void AJuraPlayerCharacter::InitAbilityActorInfo()
 	JuraPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(JuraPlayerState,this);
 	AbilitySystemComponent = Cast<UJuraAbilitySystemComponent>(JuraPlayerState->GetAbilitySystemComponent());
 	AttributeSet = JuraPlayerState->GetAttributeSet();
+
+	AJuraPlayerController* JuraPlayerController = Cast<AJuraPlayerController>(GetController());\
+	if(!JuraPlayerController) return;
+	AJuraHUD* JuraHUD = Cast<AJuraHUD>(JuraPlayerController->GetHUD());
+	JuraHUD->InitOverlay(AbilitySystemComponent,AttributeSet,JuraPlayerState,JuraPlayerController);
 }
