@@ -34,7 +34,7 @@ void AGameplayEffectActor::BeginPlay()
 void AGameplayEffectActor::OnSphereBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (const IAbilitySystemInterface* AbilitySystemInterface = Cast<IAbilitySystemInterface>(OtherActor))
+	if (const   IAbilitySystemInterface* AbilitySystemInterface = Cast<IAbilitySystemInterface>(OtherActor))
 	{
 		const UAbilitySystemComponent* AbilitySystemComponent = AbilitySystemInterface->GetAbilitySystemComponent();
 		const UJuraCharacterAttributeSet* JuraCharacterAttributeSet = Cast<UJuraCharacterAttributeSet>(AbilitySystemComponent->GetAttributeSet(UJuraCharacterAttributeSet::StaticClass()));

@@ -17,6 +17,8 @@ UOverlayWidgetController* AJuraHUD::GetOverlayWidgetController(UAbilitySystemCom
 		FWidgetControllerParams WCP(ASC,AS,PC,PS);
 		OverlayWidgetController = NewObject<UOverlayWidgetController>();
 		OverlayWidgetController->SetWidgetController(WCP);
+		// 绑定 数据模型的回调
+		OverlayWidgetController->BindCallbacksToDependencies();
 	}
 	return OverlayWidgetController;
 }

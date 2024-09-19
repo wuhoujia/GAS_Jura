@@ -16,3 +16,40 @@ void UOverlayWidgetController::BroadcastInitialValue()
 	OnManaChanged.Broadcast(CastedJuraAS->GetMana());
 	OnMaxManaChanged.Broadcast(CastedJuraAS->GetMaxMana());
 }
+
+void UOverlayWidgetController::BindCallbacksToDependencies()
+{
+	const UJuraCharacterAttributeSet* CastedJuraAS = CastChecked<UJuraCharacterAttributeSet>(JuraAttributeSet);
+	
+	FOnGameplayAttributeValueChange& HealthDelegate = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CastedJuraAS->GetHealthAttribute());
+	HealthDelegate.AddUObject(this,&UOverlayWidgetController::HealthChanged);
+
+	FOnGameplayAttributeValueChange& MaxHealthDelegate = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CastedJuraAS->GetMaxHealthAttribute());
+	MaxHealthDelegate.AddUObject(this,&UOverlayWidgetController::MaxHealthChanged);
+
+	FOnGameplayAttributeValueChange& ManaDelegate = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CastedJuraAS->GetManaAttribute());
+	ManaDelegate.AddUObject(this,&UOverlayWidgetController::ManaChanged);
+
+	FOnGameplayAttributeValueChange& MaxManaDelegate = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CastedJuraAS->GetMaxManaAttribute());
+	MaxManaDelegate.AddUObject(this,&UOverlayWidgetController::MaxManaChanged);
+}
+
+void UOverlayWidgetController::HealthChanged(const FOnAttributeChangeData& health)
+{
+	OnHealthChanged.Broadcast(health.NewValue);
+}
+
+void UOverlayWidgetController::ManaChanged(const FOnAttributeChangeData& mana)
+{
+	OnManaChanged.Broadcast(mana.NewValue);
+}
+
+void UOverlayWidgetController::MaxHealthChanged(const FOnAttributeChangeData& MaxHealth)
+{
+	OnHealthChanged.Broadcast(MaxHealth.NewValue);
+}
+
+void UOverlayWidgetController::MaxManaChanged(const FOnAttributeChangeData& MaxMana)
+{
+	OnMaxManaChanged.Broadcast(MaxMana.NewValue);
+}

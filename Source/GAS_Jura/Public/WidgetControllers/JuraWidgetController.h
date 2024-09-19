@@ -40,6 +40,7 @@ class GAS_JURA_API UJuraWidgetController : public UObject
 public:
 	void SetWidgetController(const FWidgetControllerParams& WCP);
 	virtual void BroadcastInitialValue();
+	virtual void BindCallbacksToDependencies();
 protected:
 	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;

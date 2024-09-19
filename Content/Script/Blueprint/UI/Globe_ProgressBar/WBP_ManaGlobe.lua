@@ -18,10 +18,9 @@ function M:update_mana_globe()
 end
 
 function M:OnGlobeManaChanged(new_mana)
-    self.mana = new_mana
-    local str = "current mana is "..self.mana
-    UE.UKismetSystemLibrary.PrintString(nil,str,true,false,UE.FLinearColor(1, 1, 1, 1),2)
+    UE.UKismetSystemLibrary.PrintString(nil,"Mana changed ",true,false,UE.FLinearColor(1, 1, 1, 1),2)
 
+    self.mana = new_mana
     self:update_mana_globe()
 end
 

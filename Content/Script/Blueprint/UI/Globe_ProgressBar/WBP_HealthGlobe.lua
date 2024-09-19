@@ -17,6 +17,7 @@ end
 
 function M:OnGlobeHealthChanged(new_health)
     self.health = new_health
+    UE.UKismetSystemLibrary.PrintString(nil,"health changed ",true,false,UE.FLinearColor(1, 1, 1, 1),2)
     self:update_health_globe()
 end
 

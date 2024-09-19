@@ -15,3 +15,8 @@ void UJuraWidgetController::BroadcastInitialValue()
 {
 	
 }
+
+void UJuraWidgetController::BindCallbacksToDependencies()
+{
+
+}
