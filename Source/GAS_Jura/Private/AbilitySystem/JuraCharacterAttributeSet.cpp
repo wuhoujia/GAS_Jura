@@ -6,8 +6,8 @@
 
 UJuraCharacterAttributeSet::UJuraCharacterAttributeSet()
 {
-	InitHealth(100.f);
-	InitMana(100.f);
+	InitHealth(30);
+	InitMana(30.f);
 	InitMaxHealth(100.f);
 	InitMaxMana(100.f);
 }

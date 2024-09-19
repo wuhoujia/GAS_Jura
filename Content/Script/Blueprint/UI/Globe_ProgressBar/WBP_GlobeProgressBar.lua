@@ -12,7 +12,7 @@ local M = UnLua.Class()
 --function M:Initialize(Initializer)
 --end
 function M:InitGlobeProgressBar()
-    UE.UKismetSystemLibrary.PrintString(nil,"Construct base globe ",true,false,UE.FLinearColor(1, 1, 1, 1),2)
+    -- UE.UKismetSystemLibrary.PrintString(nil,"Construct base globe ",true,false,UE.FLinearColor(1, 1, 1, 1),2)
     self.width = 100
     self.height = 100
     -- 调整尺寸
