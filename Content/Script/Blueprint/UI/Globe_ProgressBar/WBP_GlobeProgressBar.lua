@@ -31,6 +31,7 @@ function M:PreConstruct(IsDesignTime)
    self:InitGlobeProgressBar()
 end
 
+
 -- function M:Construct()
 -- end
 

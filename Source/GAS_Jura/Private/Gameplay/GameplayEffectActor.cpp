@@ -3,50 +3,25 @@
 
 #include "Gameplay/GameplayEffectActor.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
-#include "AbilitySystemInterface.h"
-#include "AbilitySystem/JuraCharacterAttributeSet.h"
-#include "Components/SphereComponent.h"
+#include "GameplayEffect.h"
 
 
 AGameplayEffectActor::AGameplayEffectActor()
-{
-	SphereComponent = CreateDefaultSubobject<USphereComponent>("SphereComponent");
-	SphereComponent->SetCollisionResponseToChannel(ECC_Pawn,ECR_Overlap);
-	SphereComponent->SetCollisionResponseToChannel(ECC_Camera,ECR_Ignore);
-	SphereComponent->SetCollisionResponseToChannel(ECC_WorldStatic,ECR_Block);
-	SphereComponent->SetCollisionResponseToChannel(ECC_WorldDynamic,ECR_Overlap);
-	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>("StaticMeshComponent");
-	SetRootComponent(SphereComponent);
-	StaticMeshComponent->SetupAttachment(SphereComponent);
+{	
 }
 
-void AGameplayEffectActor::BeginPlay()
+
+void AGameplayEffectActor::ApplyGameplayEffectToActor(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffect)
 {
-	Super::BeginPlay();
-	if (SphereComponent)
-	{
-		SphereComponent->OnComponentBeginOverlap.AddDynamic(this,&AGameplayEffectActor::OnSphereBeginOverlap);
-		SphereComponent->OnComponentEndOverlap.AddDynamic(this,&AGameplayEffectActor::OnSphereEndOverlap);
-	}
+	UAbilitySystemComponent* AbilitySystemComponent = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
+	if(!AbilitySystemComponent) return;
+	check(GameplayEffect);
+	FGameplayEffectContextHandle GameplayEffectContext = AbilitySystemComponent->MakeEffectContext();
+	GameplayEffectContext.AddSourceObject(this);
+	const FGameplayEffectSpecHandle GameplayEffectSpec = AbilitySystemComponent->MakeOutgoingSpec(GameplayEffect,1.f,GameplayEffectContext);
+	AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*GameplayEffectSpec.Data.Get());
 }
 
-void AGameplayEffectActor::OnSphereBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
-	if (const   IAbilitySystemInterface* AbilitySystemInterface = Cast<IAbilitySystemInterface>(OtherActor))
-	{
-		const UAbilitySystemComponent* AbilitySystemComponent = AbilitySystemInterface->GetAbilitySystemComponent();
-		const UJuraCharacterAttributeSet* JuraCharacterAttributeSet = Cast<UJuraCharacterAttributeSet>(AbilitySystemComponent->GetAttributeSet(UJuraCharacterAttributeSet::StaticClass()));
-		UJuraCharacterAttributeSet* MutableJuraCharacterAttributes = const_cast<UJuraCharacterAttributeSet*>(JuraCharacterAttributeSet);
-		MutableJuraCharacterAttributes->SetHealth(MutableJuraCharacterAttributes->GetHealth()+25.f);
-		Destroy();
-	}
-}
-
-void AGameplayEffectActor::OnSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
-{
-	
-}
 
