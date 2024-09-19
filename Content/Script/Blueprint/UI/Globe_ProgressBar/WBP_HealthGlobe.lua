@@ -21,6 +21,7 @@ function M:OnGlobeHealthChanged(new_health)
 end
 
 function M:OnGlobeMaxHealthChanged(new_max_health)
+    UE.UKismetSystemLibrary.PrintString(nil,"new max health is "..new_max_health,true,true,UE.FLinearColor(1, 1, 1, 1),2)
     self.max_health = new_max_health
     self:update_health_globe()
 end

@@ -13,7 +13,7 @@ UCLASS()
 class GAS_JURA_API AGameplayEffectActor : public AActor
 {
 	GENERATED_BODY()
-
+	
 public:
 	// Sets default values for this actor's properties
 	AGameplayEffectActor();
@@ -21,5 +21,7 @@ public:
 	void ApplyGameplayEffectToActor(AActor* TargetActor,TSubclassOf<UGameplayEffect> GameplayEffect);
 protected:
 	UPROPERTY(EditAnywhere,BlueprintReadOnly)
-	TSubclassOf<UGameplayEffect> GameplayEffectClass;
+	TSubclassOf<UGameplayEffect> InstantGameplayEffectClass;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+	TSubclassOf<UGameplayEffect> DurationGameplayEffectClass;
 };

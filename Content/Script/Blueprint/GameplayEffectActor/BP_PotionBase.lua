@@ -10,12 +10,13 @@
 local M = UnLua.Class()
 
 function M:BndEvt__BP_GEActor_Sphere_K2Node_ComponentBoundEvent_0_ComponentBeginOverlapSignature__DelegateSignature(OverlappedComponent, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult)
-    if(self.GameplayEffectClass == nil) then
-        UE.UKismetSystemLibrary.PrintString(nil,"GameplayEffect is nil",true,true,UE.FLinearColor(1, 1, 1, 1),2)
-    else
-        self:ApplyGameplayEffectToActor(OtherActor,self.GameplayEffectClass)
-        self:K2_DestroyActor()
+    if(self.InstantGameplayEffectClass ~= nil) then
+        self:ApplyGameplayEffectToActor(OtherActor,self.InstantGameplayEffectClass)
     end
+    if(self.DurationGameplayEffectClass ~= nil) then
+        self:ApplyGameplayEffectToActor(OtherActor,self.DurationGameplayEffectClass)
+    end
+    self:K2_DestroyActor()
 end
 
 -- function M:Initialize(Initializer)
