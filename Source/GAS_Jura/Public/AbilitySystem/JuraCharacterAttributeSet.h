@@ -13,6 +13,29 @@ GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
+USTRUCT()
+struct FEffectProperties
+{
+	GENERATED_BODY()
+    FGameplayEffectContextHandle EffectContextHandle;
+	UPROPERTY()
+	TObjectPtr<UAbilitySystemComponent> SourceAbilitySystemComponent;
+	UPROPERTY()
+	TObjectPtr<AActor> SourceAvatarActor;
+	UPROPERTY()
+	TObjectPtr<AController> SourceController;
+	UPROPERTY()
+	TObjectPtr<ACharacter> SourceCharacter;
+	UPROPERTY()
+	TObjectPtr<UAbilitySystemComponent> TargetAbilitySystemComponent;
+	UPROPERTY()
+	TObjectPtr<AActor> TargetAvatarActor;
+	UPROPERTY()
+	TObjectPtr<AController> TargetController;
+	UPROPERTY()
+	TObjectPtr<ACharacter> TargetCharacter;
+	FEffectProperties() = default;
+};
 /**
  * 
  */
@@ -23,6 +46,8 @@ class GAS_JURA_API UJuraCharacterAttributeSet : public UAttributeSet
 public:
 	UJuraCharacterAttributeSet();
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 	UPROPERTY(BlueprintReadOnly,ReplicatedUsing=OnRep_Health,Category="First Attributes")
 	FGameplayAttributeData Health;
 	ATTRIBUTE_ACCESSORS(UJuraCharacterAttributeSet, Health)
@@ -47,4 +72,6 @@ protected:
 	void OnRep_Mana(const FGameplayAttributeData& OldMana) const;
 	UFUNCTION()
 	void OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) const;
+private:
+	void MakeEffectProperties(const FGameplayEffectModCallbackData& Data,FEffectProperties& Props);
 };
