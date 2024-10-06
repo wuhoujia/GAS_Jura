@@ -39,3 +39,5 @@ void AJuraHUD::BeginPlay()
 {
 	Super::BeginPlay();
 }
+
+

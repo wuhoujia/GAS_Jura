@@ -6,12 +6,35 @@
 #include "JuraWidgetController.h"
 #include "AbilitySystem/JuraCharacterAttributeSet.h"
 #include "OverlayWidgetController.generated.h"
+class UJuraBaseUserWidget;
 struct FOnAttributeChangeData;
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChanged, float, NewHealth);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxHealthChanged,float,NewMaxHealth);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnManaChanged,float,NewMana);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxManaChanged,float,NewMaxMana);
-                                              
+class UDataTable;
+/**
+ *	给Tag配置消息UI 
+ */
+USTRUCT(BlueprintType)
+struct FTagMessage : public FTableRowBase
+{
+	GENERATED_BODY()
+	
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+	FGameplayTag GameplayTag = FGameplayTag();
+	
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+	FText Message = FText();
+	
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+	TSubclassOf<UJuraBaseUserWidget> MessageWidget;
+	
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+	TObjectPtr<UTexture2D> Image = nullptr;
+};
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttributeChanged, float, NewValue);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMessageWidgetChanged,FTagMessage,row);
+
+
 /**
  * 
  */
@@ -19,23 +42,29 @@ UCLASS(BlueprintType,Blueprintable)
 class GAS_JURA_API UOverlayWidgetController : public UJuraWidgetController
 {
 	GENERATED_BODY()
-protected:
-	void HealthChanged(const FOnAttributeChangeData& Health);
 
-	void ManaChanged(const FOnAttributeChangeData& Mana);
-
-	void MaxHealthChanged(const FOnAttributeChangeData& MaxHealth);
-
-	void MaxManaChanged(const FOnAttributeChangeData& MaxMana);
 public:
 	virtual void BroadcastInitialValue() override;
 	virtual void BindCallbacksToDependencies() override;
 	UPROPERTY(BlueprintAssignable)
-	FOnHealthChanged OnHealthChanged;
+	FOnAttributeChanged OnHealthChanged;
 	UPROPERTY(BlueprintAssignable)
-	FOnMaxHealthChanged OnMaxHealthChanged;
+	FOnAttributeChanged OnMaxHealthChanged;
 	UPROPERTY(BlueprintAssignable)
-	FOnManaChanged OnManaChanged;
+	FOnAttributeChanged OnManaChanged;
 	UPROPERTY(BlueprintAssignable)
-	FOnMaxManaChanged OnMaxManaChanged;
+	FOnAttributeChanged OnMaxManaChanged;
+	UPROPERTY(BlueprintAssignable)
+	FOnMessageWidgetChanged OnMessageWidgetChanged;
+protected:
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Widget Data")
+	TObjectPtr<UDataTable> MessageDataTable;
+	template<typename T>
+	T* GetRowByName(UDataTable* Table,const FGameplayTag& Tag);
 };
+
+template <typename T>
+T* UOverlayWidgetController::GetRowByName(UDataTable* Table,const FGameplayTag& Tag)
+{
+	return Table->FindRow<T>(Tag.GetTagName(),TEXT(""));
+}

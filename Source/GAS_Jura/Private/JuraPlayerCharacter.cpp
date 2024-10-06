@@ -49,10 +49,13 @@ void AJuraPlayerCharacter::InitAbilityActorInfo()
 	AJuraPlayerState* JuraPlayerState = GetPlayerState<AJuraPlayerState>();
 	check(JuraPlayerState);
 	JuraPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(JuraPlayerState,this);
-	AbilitySystemComponent = Cast<UJuraAbilitySystemComponent>(JuraPlayerState->GetAbilitySystemComponent());
+	AbilitySystemComponent = JuraPlayerState->GetAbilitySystemComponent();
+	// 
+	UJuraAbilitySystemComponent* JuraAbilitySystemComponent = Cast<UJuraAbilitySystemComponent>(AbilitySystemComponent);
+	JuraAbilitySystemComponent->ActorInfoSet();
+	
 	AttributeSet = JuraPlayerState->GetAttributeSet();
-
-	AJuraPlayerController* JuraPlayerController = Cast<AJuraPlayerController>(GetController());\
+	AJuraPlayerController* JuraPlayerController = Cast<AJuraPlayerController>(GetController());
 	if(!JuraPlayerController) return;
 	AJuraHUD* JuraHUD = Cast<AJuraHUD>(JuraPlayerController->GetHUD());
 	// 多人游戏情况下，本地的其他玩家可能是空

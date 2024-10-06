@@ -48,18 +48,34 @@ public:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
-	UPROPERTY(BlueprintReadOnly,ReplicatedUsing=OnRep_Health,Category="First Attributes")
+
+	UPROPERTY(BlueprintReadOnly,ReplicatedUsing=OnRep_Strength,Category="Secondary Attribute")
+	FGameplayAttributeData Strength;
+	ATTRIBUTE_ACCESSORS(UJuraCharacterAttributeSet, Strength)
+	
+	UPROPERTY(BlueprintReadOnly,ReplicatedUsing=OnRep_Resilience,Category="Secondary Attribute")
+	FGameplayAttributeData Resilience;
+	ATTRIBUTE_ACCESSORS(UJuraCharacterAttributeSet, Resilience)
+
+	UPROPERTY(BlueprintReadOnly,ReplicatedUsing=OnRep_Virgo,Category="Secondary Attribute")
+	FGameplayAttributeData Virgo;
+	ATTRIBUTE_ACCESSORS(UJuraCharacterAttributeSet,Virgo)
+	UPROPERTY(BlueprintReadOnly,ReplicatedUsing=OnRep_Intelligence,Category="Secondary Attribute")
+	FGameplayAttributeData Intelligence;
+	ATTRIBUTE_ACCESSORS(UJuraCharacterAttributeSet,Intelligence)
+	
+	UPROPERTY(BlueprintReadOnly,ReplicatedUsing=OnRep_Health,Category="Vital Attributes")
 	FGameplayAttributeData Health;
 	ATTRIBUTE_ACCESSORS(UJuraCharacterAttributeSet, Health)
-	UPROPERTY(BlueprintReadOnly,ReplicatedUsing=OnRep_MaxHealth,Category="First Attributes")
+	UPROPERTY(BlueprintReadOnly,ReplicatedUsing=OnRep_MaxHealth,Category="Vital Attributes")
 	FGameplayAttributeData MaxHealth;
 	ATTRIBUTE_ACCESSORS(UJuraCharacterAttributeSet, MaxHealth)
 
-	UPROPERTY(BlueprintReadOnly,ReplicatedUsing=OnRep_Mana,Category="First Attributes")
+	UPROPERTY(BlueprintReadOnly,ReplicatedUsing=OnRep_Mana,Category="Vital Attributes")
 	FGameplayAttributeData Mana; // 法力值
 	ATTRIBUTE_ACCESSORS(UJuraCharacterAttributeSet, Mana)
 
-	UPROPERTY(BlueprintReadOnly,ReplicatedUsing=OnRep_MaxMana,Category="First Attributes")
+	UPROPERTY(BlueprintReadOnly,ReplicatedUsing=OnRep_MaxMana,Category="Vital Attributes")
 	FGameplayAttributeData MaxMana;
 	ATTRIBUTE_ACCESSORS(UJuraCharacterAttributeSet, MaxMana)
 
@@ -72,6 +88,14 @@ protected:
 	void OnRep_Mana(const FGameplayAttributeData& OldMana) const;
 	UFUNCTION()
 	void OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) const;
+	UFUNCTION()
+	void OnRep_Strength(const FGameplayAttributeData& OldStrength) const;
+	UFUNCTION()
+	void OnRep_Intelligence(const FGameplayAttributeData& OldIntelligence) const;
+	UFUNCTION()
+	void OnRep_Virgo(const FGameplayAttributeData& OldVirgo) const;
+	UFUNCTION()
+	void OnRep_Resilience(const FGameplayAttributeData& OldResilience) const;
 private:
 	void MakeEffectProperties(const FGameplayEffectModCallbackData& Data,FEffectProperties& Props);
 };

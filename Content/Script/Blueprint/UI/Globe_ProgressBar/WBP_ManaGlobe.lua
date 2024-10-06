@@ -14,7 +14,9 @@ local M = UnLua.Class("Blueprint.UI.Globe_ProgressBar.WBP_GlobeProgressBar")
 
 
 function M:update_mana_globe()
-    self.ProgressBar:SetPercent(self.mana/self.max_mana)
+    local percent = self.mana/self.max_mana
+    self.ProgressBar:SetPercent(percent)
+    self:SetGhostPercent(percent);
 end
 
 function M:OnGlobeManaChanged(new_mana)

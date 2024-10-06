@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
+#include "WidgetControllers/OverlayWidgetController.h"
 #include "JuraHUD.generated.h"
 
 class UAttributeSet;

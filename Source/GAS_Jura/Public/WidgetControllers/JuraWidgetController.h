@@ -3,13 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "JuraWidgetController.generated.h"
 
 class UAbilitySystemComponent;
 class UAttributeSet;
-/**
- * 
- */
+
+
 USTRUCT(BlueprintType)
 struct FWidgetControllerParams
 {
@@ -50,5 +50,4 @@ protected:
 	TObjectPtr<APlayerController> JuraPlayerController;
 	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<APlayerState> JuraPlayerState;
-	
 };

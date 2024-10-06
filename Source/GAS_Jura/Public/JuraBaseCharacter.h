@@ -29,4 +29,6 @@ protected:
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 	UPROPERTY(EditDefaultsOnly,Category="Ability")
 	TObjectPtr<UAttributeSet> AttributeSet;
+	// init actor info
+	virtual void InitAbilityActorInfo();
 };

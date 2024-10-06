@@ -20,6 +20,13 @@ void AJuraEnemyCharacter::UnHighLight()
 	Weapon->SetRenderCustomDepth(false);
 }
 
+void AJuraEnemyCharacter::InitAbilityActorInfo()
+{
+	AbilitySystemComponent->InitAbilityActorInfo(this,this);
+	UJuraAbilitySystemComponent* JuraAbilitySystemComponent = Cast<UJuraAbilitySystemComponent>(AbilitySystemComponent);
+	JuraAbilitySystemComponent->ActorInfoSet();
+}
+
 AJuraEnemyCharacter::AJuraEnemyCharacter()
 {
 	GetMesh()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);
@@ -33,5 +40,5 @@ AJuraEnemyCharacter::AJuraEnemyCharacter()
 void AJuraEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	AbilitySystemComponent->InitAbilityActorInfo(this,this);
+	InitAbilityActorInfo();
 }

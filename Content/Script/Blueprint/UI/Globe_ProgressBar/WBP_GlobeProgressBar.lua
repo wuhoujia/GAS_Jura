@@ -23,6 +23,7 @@ function M:InitGlobeProgressBar()
     -- -- 设置进度条图像
     self.ProgressBar.WidgetStyle.BackgroundImage = self.ProgressBarBackgroundImg
     self.ProgressBar.WidgetStyle.FillImage = self.ProgressBarFillImg
+    self.GhostProgressBar.WidgetStyle.FillImage = self.GhostProgressBarFillImg
     -- -- 设置玻璃样式图像
     self.GlassImage:SetBrush(self.GlassBrush)
 end
@@ -31,11 +32,16 @@ function M:PreConstruct(IsDesignTime)
    self:InitGlobeProgressBar()
 end
 
-
+function M:update_ghost_globe()
+    self.GhostProgressBar:SetPercent(self.ghost_percent);
+end
 -- function M:Construct()
 -- end
 
---function M:Tick(MyGeometry, InDeltaTime)
---end
+function M:Tick(MyGeometry, InDeltaTime)
+    self.ghost_percent = UE.UKismetMathLibrary.FInterpTo(self.ghost_percent,self.target_ghost_percent,InDeltaTime,1);
+
+    self:update_ghost_globe();
+end
 
 return M

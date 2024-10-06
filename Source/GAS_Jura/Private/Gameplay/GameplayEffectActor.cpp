@@ -20,7 +20,7 @@ void AGameplayEffectActor::ApplyGameplayEffectToActor(AActor* TargetActor, TSubc
 	check(GameplayEffect);
 	FGameplayEffectContextHandle GameplayEffectContext = AbilitySystemComponent->MakeEffectContext();
 	GameplayEffectContext.AddSourceObject(this);
-	const FGameplayEffectSpecHandle GameplayEffectSpec = AbilitySystemComponent->MakeOutgoingSpec(GameplayEffect,1.f,GameplayEffectContext);
+	const FGameplayEffectSpecHandle GameplayEffectSpec = AbilitySystemComponent->MakeOutgoingSpec(GameplayEffect,EffectLevel,GameplayEffectContext);
 	FActiveGameplayEffectHandle ActiveGameplayEffectHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*GameplayEffectSpec.Data.Get());
 	// 区分无限效果
 	if(GameplayEffectSpec.Data.Get()->Def.Get()->DurationPolicy == EGameplayEffectDurationType::Infinite)

@@ -30,3 +30,8 @@ void AJuraBaseCharacter::BeginPlay()
 	Super::BeginPlay();
 }
 
+void AJuraBaseCharacter::InitAbilityActorInfo()
+{
+	
+}
+

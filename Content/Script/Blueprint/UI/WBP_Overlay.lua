@@ -26,6 +26,9 @@ function M:OnWidgetControllerSet()
     -- UE.UKismetSystemLibrary.PrintString(nil,"hello setting controller",true,true,UE.FLinearColor(1, 1, 1, 1),2)
     self.WBP_HealthGlobe:SetWidgetController(self.WidgetController)
     self.WBP_ManaGlobe:SetWidgetController(self.WidgetController)
+    -- 设置一下技能回调
+
+    self.WidgetController.OnMessageWidgetChanged:Add(self,self.CreateMessageWidget)
 end
 
 return M

@@ -20,6 +20,10 @@ UJuraCharacterAttributeSet::UJuraCharacterAttributeSet()
 void UJuraCharacterAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME_CONDITION_NOTIFY(UJuraCharacterAttributeSet,Strength,COND_None,REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UJuraCharacterAttributeSet,Intelligence,COND_None,REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UJuraCharacterAttributeSet,Virgo,COND_None,REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UJuraCharacterAttributeSet,Resilience,COND_None,REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UJuraCharacterAttributeSet,Health,COND_None,REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UJuraCharacterAttributeSet,MaxHealth,COND_None,REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UJuraCharacterAttributeSet,Mana,COND_None,REPNOTIFY_Always);
@@ -74,6 +78,14 @@ void UJuraCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffect
 	Super::PostGameplayEffectExecute(Data);
 	FEffectProperties Props;
 	MakeEffectProperties(Data,Props);
+	if(Data.EvaluatedData.Attribute == GetHealthAttribute())
+	{
+		SetHealth(FMath::Clamp(GetHealth(),0.f,GetMaxHealth()));
+	}
+	if(Data.EvaluatedData.Attribute == GetManaAttribute())
+	{
+		SetMana(FMath::Clamp(GetMana(),0.f,GetMaxMana()));
+	}
 }
 
 void UJuraCharacterAttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth) const
@@ -94,5 +106,26 @@ void UJuraCharacterAttributeSet::OnRep_Mana(const FGameplayAttributeData& OldMan
 void UJuraCharacterAttributeSet::OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UJuraCharacterAttributeSet,MaxMana,OldMaxMana);
+}
+
+void UJuraCharacterAttributeSet::OnRep_Strength(const FGameplayAttributeData& OldStrength) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UJuraCharacterAttributeSet,Strength,OldStrength);
+}
+
+void UJuraCharacterAttributeSet::OnRep_Intelligence(const FGameplayAttributeData& OldIntelligence) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UJuraCharacterAttributeSet,Intelligence,OldIntelligence);
+
+}
+
+void UJuraCharacterAttributeSet::OnRep_Virgo(const FGameplayAttributeData& OldVirgo) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UJuraCharacterAttributeSet,Virgo,OldVirgo);
+}
+
+void UJuraCharacterAttributeSet::OnRep_Resilience(const FGameplayAttributeData& OldResilience) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UJuraCharacterAttributeSet,Resilience,OldResilience);
 }
 

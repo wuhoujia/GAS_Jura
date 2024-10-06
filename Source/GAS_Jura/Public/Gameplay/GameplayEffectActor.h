@@ -76,4 +76,7 @@ protected:
 	UPROPERTY(EditAnywhere,BlueprintReadOnly)
 	TArray<FGameplayEffectWrapper> InfiniteGameplayEffectClasses;
 	TMap<UAbilitySystemComponent*,TArray<FGameplayEffectRemoveHandler>> GameplayEffectHandles;
+private:
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,meta=(AllowPrivateAccess))
+	float EffectLevel = 1.f;
 };

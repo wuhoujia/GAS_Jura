@@ -22,34 +22,49 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 	const UJuraCharacterAttributeSet* CastedJuraAS = CastChecked<UJuraCharacterAttributeSet>(JuraAttributeSet);
 	
 	FOnGameplayAttributeValueChange& HealthDelegate = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CastedJuraAS->GetHealthAttribute());
-	HealthDelegate.AddUObject(this,&UOverlayWidgetController::HealthChanged);
-
+	HealthDelegate.AddLambda([this](const FOnAttributeChangeData& health)
+	{
+		OnHealthChanged.Broadcast(health.NewValue);
+	});
+	
 	FOnGameplayAttributeValueChange& MaxHealthDelegate = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CastedJuraAS->GetMaxHealthAttribute());
-	MaxHealthDelegate.AddUObject(this,&UOverlayWidgetController::MaxHealthChanged);
-
+	MaxHealthDelegate.AddLambda([this](const FOnAttributeChangeData& MaxHealth)
+	{
+		OnMaxHealthChanged.Broadcast(MaxHealth.NewValue);
+	});
+	
 	FOnGameplayAttributeValueChange& ManaDelegate = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CastedJuraAS->GetManaAttribute());
-	ManaDelegate.AddUObject(this,&UOverlayWidgetController::ManaChanged);
-
+	ManaDelegate.AddLambda([this](const FOnAttributeChangeData& Mana)
+	{
+		OnManaChanged.Broadcast(Mana.NewValue);
+	});
+	
 	FOnGameplayAttributeValueChange& MaxManaDelegate = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CastedJuraAS->GetMaxManaAttribute());
-	MaxManaDelegate.AddUObject(this,&UOverlayWidgetController::MaxManaChanged);
+	MaxManaDelegate.AddLambda([this](const FOnAttributeChangeData& MaxMana)
+	{
+		OnMaxManaChanged.Broadcast(MaxMana.NewValue);
+	});
+
+	
+	UJuraAbilitySystemComponent* JuraAbilitySystemComponent = Cast<UJuraAbilitySystemComponent>(AbilitySystemComponent);
+	// 硬编码加载 -- 蓝图编辑加载不生效
+	if(!MessageDataTable)
+	{
+		const FName Path = TEXT("/Script/Engine.DataTable'/Game/Blueprint/UI/DataTable/MsgWidgets.MsgWidgets'");
+		MessageDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), nullptr, *Path.ToString()));
+	}
+	
+	JuraAbilitySystemComponent->EffectTags.AddLambda([this](const FGameplayTagContainer& AssetTags)
+	{
+		for(const FGameplayTag& Tag:AssetTags)
+		{
+			FGameplayTag MessageTag = FGameplayTag::RequestGameplayTag(FName("Message"));
+			if (Tag.MatchesTag(MessageTag))
+			{
+				const FTagMessage* TagMessage = GetRowByName<FTagMessage>(MessageDataTable,Tag);
+				if(TagMessage)	OnMessageWidgetChanged.Broadcast(*TagMessage);
+			}
+		}
+	});
 }
 
-void UOverlayWidgetController::HealthChanged(const FOnAttributeChangeData& health)
-{
-	OnHealthChanged.Broadcast(health.NewValue);
-}
-
-void UOverlayWidgetController::ManaChanged(const FOnAttributeChangeData& mana)
-{
-	OnManaChanged.Broadcast(mana.NewValue);
-}
-
-void UOverlayWidgetController::MaxHealthChanged(const FOnAttributeChangeData& MaxHealth)
-{
-	OnMaxHealthChanged.Broadcast(MaxHealth.NewValue);
-}
-
-void UOverlayWidgetController::MaxManaChanged(const FOnAttributeChangeData& MaxMana)
-{
-	OnMaxManaChanged.Broadcast(MaxMana.NewValue);
-}

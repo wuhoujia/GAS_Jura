@@ -12,7 +12,9 @@ local M = UnLua.Class("Blueprint.UI.Globe_ProgressBar.WBP_GlobeProgressBar")
 
 
 function M:update_health_globe()
-    self.ProgressBar:SetPercent(self.health/self.max_health)
+    local percent = self.health/self.max_health
+    self.ProgressBar:SetPercent(percent)
+    self:SetGhostPercent(percent);
 end
 
 function M:OnGlobeHealthChanged(new_health)
@@ -21,7 +23,6 @@ function M:OnGlobeHealthChanged(new_health)
 end
 
 function M:OnGlobeMaxHealthChanged(new_max_health)
-    UE.UKismetSystemLibrary.PrintString(nil,"new max health is "..new_max_health,true,true,UE.FLinearColor(1, 1, 1, 1),2)
     self.max_health = new_max_health
     self:update_health_globe()
 end
@@ -41,7 +42,8 @@ end
 -- function M:Construct()
 -- end
 
---function M:Tick(MyGeometry, InDeltaTime)
---end
+-- function M:Tick(MyGeometry, InDeltaTime)
+--     self.Super:Tick(MyGeometry,InDeltaTime)
+-- end
 
 return M
