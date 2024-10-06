@@ -34,6 +34,8 @@ void AJuraPlayerCharacter::PossessedBy(AController* NewController)
 	Super::PossessedBy(NewController);
 	/*在服务器上初始化ASC*/
 	InitAbilityActorInfo();
+	// 只在服务器初始化二级属性 客户端会做复制
+	InitSecondaryAttribute();
 }
 
 void AJuraPlayerCharacter::OnRep_PlayerState()

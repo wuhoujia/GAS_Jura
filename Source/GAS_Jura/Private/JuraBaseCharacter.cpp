@@ -4,8 +4,7 @@
 #include "JuraBaseCharacter.h"
 #include "AbilitySystem/JuraAbilitySystemComponent.h"
 
-AJuraBaseCharacter::
-AJuraBaseCharacter()
+AJuraBaseCharacter::AJuraBaseCharacter()
 {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
@@ -32,6 +31,14 @@ void AJuraBaseCharacter::BeginPlay()
 
 void AJuraBaseCharacter::InitAbilityActorInfo()
 {
-	
+}
+
+void AJuraBaseCharacter::InitSecondaryAttribute() const
+{
+	check(AbilitySystemComponent);
+	check(InitAttributeEffectClass);
+	const FGameplayEffectContextHandle context;
+	const FGameplayEffectSpecHandle GameplayEffectSpecHandle = AbilitySystemComponent->MakeOutgoingSpec(InitAttributeEffectClass,1.f,context);
+	AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*GameplayEffectSpecHandle.Data.Get(),AbilitySystemComponent);
 }
 

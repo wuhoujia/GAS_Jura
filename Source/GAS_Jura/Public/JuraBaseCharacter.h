@@ -7,6 +7,7 @@
 #include "GameFramework/Character.h"
 #include "JuraBaseCharacter.generated.h"
 
+class UGameplayEffect;
 class UAttributeSet;
 class UJuraAbilitySystemComponent;
 
@@ -29,6 +30,10 @@ protected:
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 	UPROPERTY(EditDefaultsOnly,Category="Ability")
 	TObjectPtr<UAttributeSet> AttributeSet;
+	UPROPERTY(EditDefaultsOnly,Category="Attribute")
+	TSubclassOf<UGameplayEffect> InitAttributeEffectClass;
 	// init actor info
 	virtual void InitAbilityActorInfo();
+	// 初始化属性 通过GE
+	void InitSecondaryAttribute() const;
 };
